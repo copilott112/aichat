@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How to get a Hugging Face token</title>
+<meta name="theme-color" content="#0d121b">
+<style>
+  :root{
+    --bg:#0d121b;
+    --surface:#141b28;
+    --border:#232e40;
+    --text:#e9edf5;
+    --text-dim:#8b96ab;
+    --accent:#4fa8f0;
+    --accent-hover:#6cb8f5;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#f5f8fb;
+      --surface:#ffffff;
+      --border:#dde6ee;
+      --text:#0f1b2d;
+      --text-dim:#5c6b80;
+      --accent:#2f8fe0;
+      --accent-hover:#4fa8f0;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0d121b; --surface:#141b28; --border:#232e40;
+    --text:#e9edf5; --text-dim:#8b96ab; --accent:#4fa8f0; --accent-hover:#6cb8f5;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100%;
+    padding:24px;
+  }
+  .wrap{
+    width:100%;
+    max-width:720px;
+  }
+  .frame{
+    position:relative;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .imgbox{
+    aspect-ratio:16/10;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--bg);
+  }
+  .imgbox img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+  }
+  .missing{
+    color:var(--text-dim);
+    font-size:13.5px;
+    text-align:center;
+    padding:0 24px;
+  }
+  .nav-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:rgba(20,27,40,0.7);
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:background .15s ease, opacity .15s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]) .nav-btn{ background:rgba(255,255,255,0.75); }
+  }
+  :root[data-theme="dark"] .nav-btn{ background:rgba(20,27,40,0.7); }
+  .nav-btn:hover{ background:var(--accent); color:#08131f; }
+  .nav-btn:disabled{ opacity:0.3; cursor:default; }
+  .nav-btn:disabled:hover{ background:rgba(20,27,40,0.7); color:var(--text); }
+  .nav-btn.prev{ left:14px; }
+  .nav-btn.next{ right:14px; }
+  .nav-btn svg{ width:20px; height:20px; }
+
+  .bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:16px 20px;
+    border-top:1px solid var(--border);
+  }
+  .step-label{
+    font-size:14px;
+    font-weight:600;
+  }
+  .step-label span{
+    color:var(--text-dim);
+    font-weight:400;
+  }
+  .dots{
+    display:flex;
+    gap:6px;
+  }
+  .dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--border);
+    cursor:pointer;
+    border:none;
+    padding:0;
+  }
+  .dot.active{ background:var(--accent); }
+
+  .hint{
+    text-align:center;
+    font-size:12.5px;
+    color:var(--text-dim);
+    margin-top:16px;
+  }
+  .hint code{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:1px 5px;
+    font-size:12px;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+    color:var(--text-dim);
+    text-decoration:none;
+    margin-bottom:14px;
+  }
+  .back-link:hover{ color:var(--accent); }
+  .back-link svg{ width:14px; height:14px; }
+  .caption{
+    padding:16px 20px 0;
+    font-size:14.5px;
+    line-height:1.55;
+    color:var(--text);
+  }
+  .caption:empty{ display:none; }
+  .caption a{
+    color:var(--accent);
+    text-decoration:underline;
+    word-break:break-all;
+  }
+  .caption a:hover{ color:var(--accent-hover); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back-link" href="ai-chat-download.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to download
+    </a>
+    <div class="frame">
+      <div class="imgbox" id="imgbox"></div>
+      <div class="caption" id="caption"></div>
+      <button class="nav-btn prev" id="prevBtn" type="button" aria-label="Previous step">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="nav-btn next" id="nextBtn" type="button" aria-label="Next step">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="bar">
+        <div class="step-label" id="stepLabel"></div>
+        <div class="dots" id="dots"></div>
+      </div>
+    </div>
+    <div class="hint">Edit the <code>STEPS</code> list near the top of this file's script to add pages or change text. Write <code>link:</code> right before a URL in a caption to make it clickable. Use the arrows, the dots, or your keyboard's left/right keys to move between steps.</div>
+  </div>
+
+<script>
+  /* ==========================================================================
+     TO ADD, REMOVE, OR EDIT STEPS: just edit the STEPS array below.
+     Each step is one object:
+
+       { image: 'tutorial/stepN.png', caption: 'Text shown under the image.' }
+
+     - "image" is the path to that step's screenshot (or leave it '' for a
+       text-only step with no picture).
+     - "caption" is plain text shown under the image. To turn a URL into a
+       clickable link, write "link:" right before it, e.g.:
+           'Open link:https://huggingface.co/settings/tokens and sign in.'
+       Everything after "link:" up to the next space becomes a clickable link
+       (the "link:" part itself is not shown, only the URL/text after it).
+     - To add a new page, just add another { image, caption } entry to the
+       array — the dots, counter, and arrows update automatically.
+     ========================================================================== */
+  const STEPS = [
+    { image: 'tutorial/step1.png', caption: 'Go to link:https://huggingface.co/settings/tokens and sign in to your Hugging Face account.' },
+    { image: 'tutorial/step2.png', caption: 'Click "New token".' },
+    { image: 'tutorial/step3.png', caption: 'Give the token a name and choose the "Read" role (or "Write" if you need it).' },
+    { image: 'tutorial/step4.png', caption: 'Click "Create token".' },
+    { image: 'tutorial/step5.png', caption: 'Copy the token — you won\u2019t be able to see it again after leaving this page.' },
+    { image: 'tutorial/step6.png', caption: 'Paste the token into the app\u2019s settings to finish setup.' }
+  ];
+
+  const imgbox = document.getElementById('imgbox');
+  const captionEl = document.getElementById('caption');
+  const stepLabel = document.getElementById('stepLabel');
+  const dotsEl = document.getElementById('dots');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  let current = 1;
+
+  /* Escapes HTML, then turns "link:URL" into a clickable <a> tag.
+     "link:" must be followed immediately (no space) by the link target;
+     the target runs until the next whitespace character. */
+  function renderCaption(text) {
+    const div = document.createElement('div');
+    div.textContent = text || '';
+    const escaped = div.innerHTML;
+    return escaped.replace(/link:(\S+)/g, function (_, target) {
+      const clean = target.replace(/[.,;:!?)]+$/, ''); // trim trailing punctuation
+      const trail = target.slice(clean.length);
+      const href = /^https?:\/\//i.test(clean) ? clean : 'https://' + clean;
+      return '<a href="' + href + '" target="_blank" rel="noopener noreferrer">' + clean + '</a>' + trail;
+    });
+  }
+
+  STEPS.forEach((_, idx) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot';
+    dot.type = 'button';
+    dot.setAttribute('aria-label', 'Go to step ' + (idx + 1));
+    dot.addEventListener('click', () => goTo(idx + 1));
+    dotsEl.appendChild(dot);
+  });
+
+  function render() {
+    const step = STEPS[current - 1] || {};
+
+    imgbox.innerHTML = '';
+    if (step.image) {
+      const img = document.createElement('img');
+      img.src = step.image;
+      img.alt = 'Step ' + current;
+      img.onerror = () => {
+        imgbox.innerHTML = '<div class="missing">Missing image: ' + step.image + '</div>';
+      };
+      imgbox.appendChild(img);
+    } else {
+      imgbox.innerHTML = '<div class="missing">No image for this step</div>';
+    }
+
+    captionEl.innerHTML = renderCaption(step.caption);
+
+    stepLabel.innerHTML = 'Step ' + current + ' <span>of ' + STEPS.length + '</span>';
+
+    [...dotsEl.children].forEach((d, idx) => {
+      d.classList.toggle('active', idx + 1 === current);
+    });
+
+    prevBtn.disabled = current === 1;
+    nextBtn.disabled = current === STEPS.length;
+  }
+
+  function goTo(n) {
+    current = Math.min(STEPS.length, Math.max(1, n));
+    render();
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  render();
+</script>
+</body>
+</html>
