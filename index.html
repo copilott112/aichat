@@ -285,7 +285,7 @@
 <div class="card">
     <div class="mark">
       <svg viewBox="0 0 24 24" fill="none" stroke="#08131f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5"/>
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5[...]
       </svg>
     </div>
     <h1>AI Chat</h1>
@@ -334,7 +334,7 @@
         <div class="dots" id="dots"></div>
       </div>
     </div>
-    <div class="hint">Edit the <code>STEPS</code> list near the top of this file's script to add pages or change text. Write <code>link:</code> right before a URL in a caption to make it clickable. Use <code>link:</code> right before a URL to turn it into a clickable link. The app will open the linked page in a new tab.</div>
+    <div class="hint">Edit the <code>STEPS</code> list near the top of this file's script to add pages or change text. Write <code>link:</code> right before a URL in a caption to make it clickable. Use <code>link:</code> before a URL, and the code will turn it into a clickable link in the tutorial. The tutorial is self-contained.</div>
   </div>
   </div>
 
@@ -354,7 +354,7 @@
 
 <script>
 
-const B64 = "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiPgo8dGl0bGU+QWkgQ2hhdCAmbWRhc2g7IERvd25sb2FkPC90aXRsZT4KPG1ldGEgbmFtZT0idGhlbWUtY29sb3IiIGNvbnRlbnQ9IiMwZDEyMWIiPgo8c3R5bGU+CiA6cm9vdHt9CiAgICAtLWJnOiMwZDEyMWI7CiAgICAtLXN1cmZhY2U6IzE0MWIyODsKICAgIC0tYm9yZGVyOiMyMzJlNDA7CiAgICAtLXRleHQ6I2U5ZWRmNTsKICAgIC0tdGV4dC1kaW06IzhiOTZhYjsKICAgIC0tYWNjZW50OiM0ZmE4ZjA7CiAgICAtLWFjY2VudC1ob3ZlcjojNmNiOGY1OwogICAgfQogICAgQG1lZGlhICgocHJlZmVycy1jb2xvci1zY2hlbWU6IGxpZ2h0KSl7CiAgICB7CiAgICAgIC0tYm86I2Y1ZjhmYjsgCiAgICAgIC0tc3VyZmFjZTojZmZmZmZmOwogAgICAgIC0tYm9yZGVyOiJkZGU2ZWU7CiAgICAgIC0tdGV4dDojMGYxYjJkOwogICAgICAtLXRleHQtZGltOiM1YzZiODA7CiAgICAgIC0tYWNjZW50OiMyZjhmZTA7CiAgICAgIC0tYWNjZW50LWhvdmVyOiM0ZmE4ZjA7CiAgICB9CiAgICB9CiAgICB6b29tYWQ+IgpzZW1yOiB7CiAgICB9Cn0KQG1lZGlhICgocHJlZmVycy1jb2xvci1zY2hlbWU6IGxpZ2h0KSk7CiAgOm9vdHt9CiAgICB9CiwgCiAgICB9CgogIG0hCn0KCiAgICAKCiAgICB9CiAgICAKCiAgICAKCjF9";
+const B64 = "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiPgo8dGl0bGU[...]
 
 
 document.getElementById('dlBtn').addEventListener('click', function(){
@@ -404,12 +404,12 @@ document.getElementById('dlBtn').addEventListener('click', function(){
     { image: 'tutorial/step3.png', caption: 'From here, enter a username and your real name, then press that you agree with the terms of service and click create account..' },
     { image: 'tutorial/step4.png', caption: 'Verify your email by clicking the link sent to your email adress.' },
     { image: 'tutorial/step5.png', caption: 'Now that you have an account, click the profile picture in the top right.' },
-    { image: 'tutorial/step6.png', caption: 'Scroll down until you see "Access Tokens" and click it.' }
-    { image: 'tutorial/step7.png', caption: 'Click on "Create new token".' }
-    { image: 'tutorial/step8.png', caption: 'Give your token a name and select the "Inference" preset.' }
-    { image: 'tutorial/step9.png', caption: 'Scroll down and click "Create token".' }
+    { image: 'tutorial/step6.png', caption: 'Scroll down until you see "Access Tokens" and click it.' },
+    { image: 'tutorial/step7.png', caption: 'Click on "Create new token".' },
+    { image: 'tutorial/step8.png', caption: 'Give your token a name and select the "Inference" preset.' },
+    { image: 'tutorial/step9.png', caption: 'Scroll down and click "Create token".' },
     { image: 'tutorial/step10.png', caption: 'Now, click the "Copy" button beside the token and paste it into the input field in the html file!' }
- ];
+  ];
 
   const imgbox = document.getElementById('imgbox');
   const captionEl = document.getElementById('caption');
