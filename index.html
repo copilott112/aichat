@@ -399,13 +399,17 @@ document.getElementById('dlBtn').addEventListener('click', function(){
        array — the dots, counter, and arrows update automatically.
      ========================================================================== */
   const STEPS = [
-    { image: 'tutorial/step1.png', caption: 'Go to link:https://huggingface.co/settings/tokens and sign in to your Hugging Face account.' },
-    { image: 'tutorial/step2.png', caption: 'Click "New token".' },
-    { image: 'tutorial/step3.png', caption: 'Give the token a name and choose the "Read" role (or "Write" if you need it).' },
-    { image: 'tutorial/step4.png', caption: 'Click "Create token".' },
-    { image: 'tutorial/step5.png', caption: 'Copy the token — you won\u2019t be able to see it again after leaving this page.' },
-    { image: 'tutorial/step6.png', caption: 'Paste the token into the app\u2019s settings to finish setup.' }
-  ];
+    { image: 'tutorial/step1.png', caption: 'Go to link:https://huggingface.co and click sign up in the top right..' },
+    { image: 'tutorial/step2.png', caption: 'Enter your email adress and a password you would like to use.' },
+    { image: 'tutorial/step3.png', caption: 'From here, enter a username and your real name, then press that you agree with the terms of service and click create account..' },
+    { image: 'tutorial/step4.png', caption: 'Verify your email by clicking the link sent to your email adress.' },
+    { image: 'tutorial/step5.png', caption: 'Now that you have an account, click the profile picture in the top right.' },
+    { image: 'tutorial/step6.png', caption: 'Scroll down until you see "Access Tokens" and click it.' }
+    { image: 'tutorial/step7.png', caption: 'Click on "Create new token".' }
+    { image: 'tutorial/step8.png', caption: 'Give your token a name and select the "Inference" preset.' }
+    { image: 'tutorial/step9.png', caption: 'Scroll down and click "Create token".' }
+    { image: 'tutorial/step10.png', caption: 'Now, click the "Copy" button beside the token and paste it into the input field in the html file!' }
+ ];
 
   const imgbox = document.getElementById('imgbox');
   const captionEl = document.getElementById('caption');
